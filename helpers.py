@@ -5,6 +5,14 @@ import pandas as pd
 from retry_requests import retry
 import urllib
 import uuid
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+import scipy.special as sc
 
 from flask import redirect, render_template, request, session
 from functools import wraps
@@ -54,13 +62,45 @@ def windavg(longitude, latitude):
     hourly_data["wind_direction_100m"] = hourly_wind_direction_100m
 
     hourly_dataframe = pd.DataFrame(data = hourly_data)
-    #print(hourly_dataframe)
+    # print(hourly_dataframe)
     avg=hourly_dataframe.mean()
     wind_speed_10m= round(float(avg.iloc[1]), 2)
     wind_speed_100m=round(float(avg.iloc[2]), 2)
     wind_direction_10m=round(float(avg.iloc[3]), 2)
     wind_direction_100m=round(float(avg.iloc[4]), 2)
 
+    def weibull (x,c,k):
+     return (k / c) * (x / c)**(k - 1) * np.exp(-(x / c)**k)
+
+    ws = hourly_data["wind_speed_10m"]
+    r1, r2 = 0, 20
+    def vel(r1, r2):
+        return [item for item in range(r1, r2+1)]
+     
+
     #print(avg)
     #print(avg.iloc[1])
+    #calculate k
+    k= (math.sqrt(np.mean(abs(ws - np.mean(ws))**2))/np.mean(ws))**-1.089
+
+    #calculate c
+    gamma_f = math.exp(sc.gammaln(1+(1/k)))
+    c = (np.mean(ws)/gamma_f)
+
+
+    
+    Weibull = weibull(ws,c,k)
+    Weibull_df = pd.DataFrame(Weibull).rename(columns={"WS10M":"Probability"})
+    Weibull_df
+
+    # N=8760
+    # colors = np.random.rand(N)
+    # plt.scatter(ws,Weibull,c=colors, zorder=2)
+    # plt.xlabel("Wind Speed (m/s)")
+    # plt.ylabel("Probability")
+    # plt.title("Weibull Distribution")
+    # plt.show()
+
     return {"wind_speed":wind_speed_10m, "wind_direction": wind_direction_10m}
+
+

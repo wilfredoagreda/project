@@ -26,16 +26,12 @@ def index():
 
     if request.method =="POST":
         latitude = request.form.get("latitude")
-        print('latitude')
-        print(latitude)
-        #app.logger.info('entre en post')
+        # app.logger.info('entre en post')
         longitude = request.form.get("longitude")
-        print('longitude ')
-        print(longitude)
         wind = windavg(latitude,longitude)
         print(wind)
         return render_template("index.html", direction=wind["wind_direction"], speed=wind["wind_speed"])
 
     else:
-        #app.logger.info('entre en get')
+        # app.logger.info('entre en get')
         return render_template("index.html")
