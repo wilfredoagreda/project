@@ -76,31 +76,34 @@ def windavg(longitude, latitude):
     r1, r2 = 0, 20
     def vel(r1, r2):
         return [item for item in range(r1, r2+1)]
-     
+    speed = vel(r1,r2)
 
-    #print(avg)
-    #print(avg.iloc[1])
+
+    direct = [0, 30, 60, 90, 120, 150, 180, 210, 240, 300, 330, 360]
+    wsd = hourly_data["wind_direction_10m"]
+        
     #calculate k
     k= (math.sqrt(np.mean(abs(ws - np.mean(ws))**2))/np.mean(ws))**-1.089
 
     #calculate c
     gamma_f = math.exp(sc.gammaln(1+(1/k)))
     c = (np.mean(ws)/gamma_f)
+  
+    Weibull = weibull(speed,c,k)
+    Weibull_df = Weibull
+    # print(Weibull_df)
 
+        #calculate k
+    kd= (math.sqrt(np.mean(abs(wsd - np.mean(wsd))**2))/np.mean(wsd))**-1.089
 
-    
-    Weibull = weibull(ws,c,k)
-    Weibull_df = pd.DataFrame(Weibull).rename(columns={"WS10M":"Probability"})
-    Weibull_df
+    #calculate c
+    gamma_ff = math.exp(sc.gammaln(1+(1/kd)))
+    cd = (np.mean(wsd)/gamma_ff)
+  
+    Weibull_direction = weibull(direct,cd,kd)
+    Weibull_dff = Weibull_direction
+    # print(Weibull_df)
 
-    # N=8760
-    # colors = np.random.rand(N)
-    # plt.scatter(ws,Weibull,c=colors, zorder=2)
-    # plt.xlabel("Wind Speed (m/s)")
-    # plt.ylabel("Probability")
-    # plt.title("Weibull Distribution")
-    # plt.show()
-
-    return {"wind_speed":wind_speed_10m, "wind_direction": wind_direction_10m}
+    return {"hourly_data_wind":hourly_dataframe["wind_speed_10m"],"hourly_data_direction":hourly_dataframe["wind_direction_10m"], "Weibull":Weibull_df, "Weibull_direction":Weibull_dff}
 
 

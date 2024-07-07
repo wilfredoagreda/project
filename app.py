@@ -1,4 +1,8 @@
 import os
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+import scipy.special as sc
 
 from cs50 import sql
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
@@ -29,8 +33,8 @@ def index():
         # app.logger.info('entre en post')
         longitude = request.form.get("longitude")
         wind = windavg(latitude,longitude)
-        print(wind)
-        return render_template("index.html", direction=wind["wind_direction"], speed=wind["wind_speed"])
+        # print(wind["hourly_data"])
+        return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"])
 
     else:
         # app.logger.info('entre en get')

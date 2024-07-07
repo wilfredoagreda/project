@@ -96,4 +96,121 @@ function geocode(request) {
     });
 }
 
+function initChart() {
+  let data = document.querySelectorAll('#weibull');
+  let data2 = document.querySelectorAll('#weibull_direction');
+  const parsedData = []
+  const labels = []
+  data.forEach((item,index) => {
+    parsedData.push(parseFloat(item.dataset.name))
+    labels.push(index)
+
+  });
+  const parsedData2 = []
+  data2.forEach((item2) => {
+    parsedData2.push(parseFloat(item2.dataset.name))
+  });
+  
+  // console.log(parsedData2)
+
+  const ctx = document.getElementById('graph').getContext('2d');
+  const ctx2 = document.getElementById('wind_rose').getContext('2d');
+const chart = new Chart(ctx, {
+
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Frecuency',
+      data: parsedData,
+      backgroundColor: 'green',
+      type: 'bar',
+    },
+    
+    {
+      label: 'Curve linearization',
+      data: parsedData,
+      backgroundColor: 'black',
+      type: 'line',
+    }
+  ]
+  },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'WEIBULL FRECUENCY DISTRIBUTION',
+          font: {
+            size: 24,
+            family: 'Helvetica Neue'
+          }
+        }
+      },
+      scales: {
+        xAxes: [{
+          display: false,
+          barPercentage: 1.3,
+          ticks: {
+            max: 3,
+          }
+        }, {
+          display: true,
+          ticks: {
+            autoSkip: false,
+            max: 4,
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+    
+  });
+
+  const chart2 = new Chart(ctx2, {
+
+    data: {
+      labels: ['N', 'NNE', 'ENE', 'E', 'ESE', 'SSE', 'S', 'SSW', 'WSW', 'W', 'WNW', 'NNW'],
+      datasets: [{
+        label: 'Frecuency',
+        data: parsedData2,
+        type: 'radar',
+        fill: true,
+        backgroundColor: 'rgba(86, 204, 157, 0.2)',
+        borderColor: 'rgb(86, 204, 157)',
+        pointBackgroundColor: 'rgb(86, 204, 157)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgb(86, 204, 157)'
+      },
+    ]
+    },
+      options: {
+        elements: {
+          line: {
+            borderWidth: 3
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'DIRECTION FRECUENCY DISTRIBUTION',
+            font: {
+              size: 24,
+              family: 'Helvetica Neue'
+            }
+          }
+        },
+
+      }
+      
+    });
+
+
+}
+
 window.initMap = initMap;
+initChart()
+
