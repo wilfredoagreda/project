@@ -22,6 +22,14 @@ body {
 
 
 }
+.section2 {
+  display: flex;
+  margin:20px
+}
+
+.model {
+  padding:10px;
+}
 
 
 
@@ -38,6 +46,22 @@ body {
   margin-left: 30px;
 }
 
+.graphics {
+  display:flex;
+  align-items: center;
+  margin-top: 30px;
+
+}
+
+section {
+  display: flex;
+  align-items: center;
+}
+
+.summary {
+  align-items: center;
+  margin-inline: auto;
+}
 
 /* 
  * Always set the map height explicitly to define the size of the div element
@@ -48,16 +72,22 @@ body {
   width:800px;
   padding: 50px;
   margin-left: 30px;
+  margin-top: 30px;
   
 
 }
 
+#wind_rose {
+  margin-left: 50px;
+
+
+}
 #graph {
+  margin-left: 30px;
   position: relative;
-  height: 450px;
-  width:800px;
-  padding: 50px;
-  margin-left: -20px;
+  height: 400;
+  width: 800;
+
 
 }
 

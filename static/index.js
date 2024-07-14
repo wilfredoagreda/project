@@ -6,12 +6,25 @@ let response;
 let currentLat;
 let currentLng;
 
+//Run once DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+
+  //Calculation of geolocation
+  document.querySelector('.btn.btn-primary').addEventListener('click', function(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(function(position) {
+      document.querySelector('#latitude').value = position.coords.latitude;
+      document.querySelector('#longitude').value = position.coords.longitude;
+    });
+  })
+  });
+
 function initMap() {
     navigator.geolocation.getCurrentPosition(function(position) {
-    currentLat = parseFloat(position.coords.latitude.toFixed(3))
-    currentLng = parseFloat(position.coords.longitude.toFixed(3))
-    document.querySelector('#latitude').value = currentLat;
-    document.querySelector('#longitude').value = currentLng;
+    currentLat = parseFloat(position.coords.latitude.toFixed(6))
+    currentLng = parseFloat(position.coords.longitude.toFixed(6))
+    // document.querySelector('#latitude').value = currentLat;
+    // document.querySelector('#longitude').value = currentLng;
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 8,
       center: { lat: currentLat, lng: currentLng },
@@ -115,6 +128,7 @@ function initChart() {
 
   const ctx = document.getElementById('graph').getContext('2d');
   const ctx2 = document.getElementById('wind_rose').getContext('2d');
+
 const chart = new Chart(ctx, {
 
   data: {
@@ -122,7 +136,7 @@ const chart = new Chart(ctx, {
     datasets: [{
       label: 'Frecuency',
       data: parsedData,
-      backgroundColor: 'green',
+      backgroundColor: 'rgba(86, 204, 157)',
       type: 'bar',
     },
     
@@ -135,12 +149,14 @@ const chart = new Chart(ctx, {
   ]
   },
     options: {
+      responsive: false,
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: true,
           text: 'WEIBULL FRECUENCY DISTRIBUTION',
           font: {
-            size: 24,
+            size: 20,
             family: 'Helvetica Neue'
           }
         }
@@ -188,6 +204,8 @@ const chart = new Chart(ctx, {
     ]
     },
       options: {
+        responsive: false,
+        maintainAspectRatio: false,
         elements: {
           line: {
             borderWidth: 3
@@ -198,7 +216,7 @@ const chart = new Chart(ctx, {
             display: true,
             text: 'DIRECTION FRECUENCY DISTRIBUTION',
             font: {
-              size: 24,
+              size: 20,
               family: 'Helvetica Neue'
             }
           }
@@ -207,6 +225,7 @@ const chart = new Chart(ctx, {
       }
       
     });
+
 
 
 }

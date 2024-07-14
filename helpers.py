@@ -104,6 +104,6 @@ def windavg(longitude, latitude):
     Weibull_dff = Weibull_direction
     # print(Weibull_df)
 
-    return {"hourly_data_wind":hourly_dataframe["wind_speed_10m"],"hourly_data_direction":hourly_dataframe["wind_direction_10m"], "Weibull":Weibull_df, "Weibull_direction":Weibull_dff}
+    return {"hourly_data_wind":hourly_dataframe["wind_speed_10m"],"hourly_data_direction":hourly_dataframe["wind_direction_10m"], "Weibull":Weibull_df, "Weibull_direction":Weibull_dff, "wind_speed":wind_speed_10m, "wind_direction": wind_direction_10m}
 
 

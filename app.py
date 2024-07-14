@@ -30,11 +30,16 @@ def index():
 
     if request.method =="POST":
         latitude = request.form.get("latitude")
-        # app.logger.info('entre en post')
+            # app.logger.info('entre en post')
         longitude = request.form.get("longitude")
+        if not latitude:
+            return redirect("/")
+        if not longitude:
+            return redirect("/")
+
         wind = windavg(latitude,longitude)
         # print(wind["hourly_data"])
-        return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"])
+        return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"], latitude=latitude, longitude=longitude, direction=wind["wind_direction"], speed=wind["wind_speed"])
 
     else:
         # app.logger.info('entre en get')

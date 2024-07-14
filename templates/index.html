@@ -17,13 +17,6 @@
 
         </script>
       </body>
-        <script>
-          //Run once DOM is loaded
-          document.addEventListener('DOMContentLoaded', function() {          
-          });
-
-
-        </script>
     </head>
     <body>
       <header class="header">
@@ -40,40 +33,120 @@
         </div>
         <div class="card mb-3">
           <h3 class="card-header">Step Nº1: Define your location and obtain your wind information</h3>
-            <section class="card-body">
-              <button type="button" class="btn btn-primary" id="location"><img src="static/images/compass.png" width="20" height="20"></button>
-            </section>
+          <section>
             <div id="map"></div>
             <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyBk1HOGs-rDHdk-Gl6UtR4kaiXE8qtctCo&language=en&loading=async&libraries=marker&callback=initMap&v=weekly"></script>
+            <div class="summary">
+              <img src="static/images/windy_icon.png" width="100" height="100">
+              <h3 class="card-title" style="text-align: center; font-weight: bold;">WIND SUMMARY</h3>
+              <h4><strong>Average speed: </strong>{{ speed }}m/s</h4>
+              <h4><strong>Average direction: </strong>{{ direction }}º</h4>
+              <p><strong>Latitude: </strong>{{ latitude }}</p>
+              <p><strong>Longitude: </strong>{{ longitude }}</p>
+              <p><strong>Height above ground: </strong>10m</p>
+            </div>
+
+          </section>
+
+
+            
             <div class="manual">
-              <h5 class="card-title">Or introduce manual coordinates</h5>
+              <h5 class="card-title">Or introduce your coordinates</h5>
+              <button type="button" class="btn btn-primary" id="location"><img src="static/images/compass.png" width="20" height="20"></button>
               <form action="/" method="post">
-                <input class="form-control" type="number" step="0.001" name="latitude" placeholder="Lat" id="latitude" min="-90" max="90">
-                <input class="form-control" type="number" step="0.001" name="longitude" placeholder="Long" id="longitude" min="-180" max="180">
+                <input class="form-control" type="number" step="0.0000001" name="latitude" placeholder="Latitude" id="latitude" min="-90" max="90">
+                <input class="form-control" type="number" step="0.0000001" name="longitude" placeholder="Longitude" id="longitude" min="-180" max="180">
                 <button type="submit" class="btn btn-primary" id="location">Submit</button>
               </form>
-            </div>
-            <!-- <h5 class="card-title">{{ direction }}º</h5>
-            <h5 class="card-title">{{ speed }}m/s</h5> -->
-            {% for row in weibull %}
-              <meta id="weibull" data-name="{{row}}"></meta>
-              <!-- <h5 class="card-title" id="weibull2">{{ row }}</h5> -->
-            {% endfor %}
-            {% for item in weibull_direction %}
-            <meta id="weibull_direction" data-name="{{item}}"></meta>
-            <!-- <h5 class="card-title" id="weibull2">{{ row }}</h5> -->
-            {% endfor %}
-            <!-- <h5 class="card-title" id="weibull">{{ weibull}}</h5> -->
-             <div class="graphics">
-              <canvas id="graph"></canvas>
-              <canvas id="wind_rose"></canvas>
-             </div>
-
-            <!-- <meta id="my-data" data-name="{{weibull}}"> -->
-
+            </div>   
+            
+              {% for row in weibull %}
+                <meta id="weibull" data-name="{{row}}"></meta>
+              {% endfor %}
+              {% for item in weibull_direction %}
+              <meta id="weibull_direction" data-name="{{item}}"></meta>
+              {% endfor %}
+              <br>
+              <hr class="border border-primary border-3 opacity-50">
+              <h3 class="card-title" style="text-align: center; text-decoration: underline;"><strong>WIND INFORMATION</strong></h3>
+              <div class="graphics">
+                <canvas id="graph" height="400" width="800"></canvas>
+                <canvas id="wind_rose" height="400" width="400"></canvas>
+              </div>
         </div>  
-  
 
+        <div class="card mb-3">
+          <h3 class="card-header">Step Nº2: Select your wind turbine model</h3>
+          <form action="/" method="post">
+            <div class="section2">
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                  <label class="form-check-label" for="optionsRadios1">
+                    <h5>Enair 30 PRO</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  <label class="form-check-label" for="optionsRadios2">
+                    <h5>Atlas X</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  <label class="form-check-label" for="optionsRadios2">
+                    <h5>Enair 70 Pro</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  <label class="form-check-label" for="optionsRadios2">
+                    <h5>Atlas 2.0</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  <label class="form-check-label" for="optionsRadios2">
+                    <h5>Bornay 6000</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+              <div class="model">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  <label class="form-check-label" for="optionsRadios2">
+                    <h5>Bornay 6000</h5>
+                  </label>
+                </div>
+                <img src="static/images/Enair30pro.png" width="200" height="200">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="location" style="margin: 20px;">Submit</button>
+          </form>
+
+
+
+
+
+
+      
+
+
+  
+        </div>
       </main>
   
 
