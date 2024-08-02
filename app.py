@@ -34,11 +34,13 @@ def index():
         longitude = request.form.get("longitude")
         if not latitude:
             return redirect("/")
-        if not longitude:
+        if not latitude:
             return redirect("/")
+        # print(option)
 
         wind = windavg(latitude,longitude)
-        # print(wind["hourly_data"])
+        # power_wind = power(wind, option)
+        # print(wind)
         return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"], latitude=latitude, longitude=longitude, direction=wind["wind_direction"], speed=wind["wind_speed"])
 
     else:
