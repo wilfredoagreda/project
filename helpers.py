@@ -5,7 +5,9 @@ import pandas as pd
 from retry_requests import retry
 import urllib
 import uuid
-import os
+import os, csv, json, requests
+import glob
+from datetime import date
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
@@ -106,12 +108,42 @@ def windavg(longitude, latitude):
 
     return {"hourly_data_wind":hourly_dataframe["wind_speed_10m"],"hourly_data_direction":hourly_dataframe["wind_direction_10m"], "Weibull":Weibull_df, "Weibull_direction":Weibull_dff, "wind_speed":wind_speed_10m, "wind_direction": wind_direction_10m}
 
-# def power(wind, option):
+def power(lat, lon, solar_power, loss):
+
+    # -----------Set up array with lat - long values ------------------------------ 
+    # -----------WGS84 format if not alreaady--------------------------------------
+ 
+    # csv_list=[f for f in glob.glob(os.path.join(r'Q:\projects\csv_fpr pvgis', "*.csv"))] #list of csv to check
+    #-----------------PVGIS create URLs----------------------------------                   
+    url_base = f"https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?"
+
+    #----- set API call parameters (examples below) ------------------
+    pvgis_params = dict(
+    lat = lat,
+    lon = lon,
+    peakpower=solar_power,
+    loss=loss,
+    optimalinclination=1,
+    vertical_axis=1,
+    optimalangles=1,
+    inclined_axis=1,
+    inclined_optimum=1,
+    angle = 0,
+    azimuth = 0,
+    outputformat = 'json',)
+
+    params = "&".join([f'{key}={value}' for key, value in pvgis_params.items()])
+    url_pvcalc = f'{url_base}&{params}'
+
+    response = requests.get(url_pvcalc)
+    row_json = json.loads(response.text)
+    e_m_value = [entry["E_m"] for entry in row_json["outputs"]["monthly"]["fixed"]]
+    slope = row_json["inputs"]["mounting_system"]["fixed"]["slope"]["value"]
+    azimuth = row_json["inputs"]["mounting_system"]["fixed"]["azimuth"]["value"]
+
+    # print(e_m_value)
    
-#    print(wind["Weibull"])
-#    print(option)
-   
-#    return
+    return {"solar_production":e_m_value, "slope":slope, "azimuth":azimuth}
 
 
 

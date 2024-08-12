@@ -16,12 +16,6 @@ body {
 .card-body {
   display:inline-block;
 }
-
-.btn-primary {
-  padding: 3px;
-
-
-}
 .section2 {
   display: flex;
   margin:20px
@@ -30,6 +24,8 @@ body {
 .model {
   padding:10px;
 }
+
+
 
 
 
@@ -90,6 +86,7 @@ section {
 
 
 }
+
 
 /* 
  * Optional: Makes the sample page fill the window. 
