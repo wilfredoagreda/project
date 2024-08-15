@@ -6,7 +6,7 @@ import scipy.special as sc
 
 from cs50 import sql
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
-from helpers import windavg, power
+from helpers import windavg
 
 # Configure application
 app = Flask(__name__)
@@ -44,11 +44,11 @@ def index():
             loss = 14
 
         wind = windavg(latitude,longitude)
-        power_solar =power(latitude,longitude, solar_power, loss)
+        # power_solar =power(latitude,longitude, solar_power, loss)
 
         # power_wind = power(wind, option)
         # print(wind)
-        return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"], latitude=latitude, longitude=longitude, direction=wind["wind_direction"], speed=wind["wind_speed"], solar_power=solar_power, loss=loss, solar_production=power_solar["solar_production"], slope=power_solar["slope"], azimuth=power_solar["azimuth"])
+        return render_template("index.html", weibull=wind["Weibull"],weibull_direction=wind["Weibull_direction"], latitude=latitude, longitude=longitude, direction=wind["wind_direction"], speed=wind["wind_speed"])
 
     else:
         app.logger.info('entre en get')

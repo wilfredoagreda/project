@@ -1,101 +1,130 @@
-body {
-  background-color: #f5f5f5;
+html, body {
+  height:100%;
+}
+ 
+ body {
+  background: url(../static/images/background_img.jpg) no-repeat;
+  background-size: cover;
 }
 
-.container-fluid {
-    margin-left: 80px;
-
-}
-
-.main {
-      
+ main {
   margin-left: 100px;
   margin-right: 100px;
-    }
-
-.card-body {
-  display:inline-block;
-}
-.section2 {
   display: flex;
-  margin:20px
+  flex-direction: column;
 }
+  
+  .card.mb-3 {
+    opacity: 0.95;
+  }
 
-.model {
-  padding:10px;
-}
+  .card.mb-3 .manual {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    width:600px;
+    margin-left: 30px;
+  }
 
+  .card.mb-3 .peak {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    flex: 1 1 auto;
+  }
 
+  .card.header {
+    padding: 30px;
+  }
 
+  section {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    margin: 30px 30px;
+  }
 
+  .summary {
+    margin: 30px auto;
+    flex-direction: column;
+    justify-content: center;
+  }
 
+  .summary img {
+    width: 100px;
+    height: 100px;
+  }
 
-.card-title {
-  display:inline-block;
-  margin-left: 30px;
-}
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content:left;
+    padding-bottom: 30px;
+  }
 
-.manual form {
-  display:flex;
-  align-items: center;
-  width:600px;
-  margin-left: 30px;
-}
-
-.graphics {
-  display:flex;
-  align-items: center;
-  margin-top: 30px;
-
-}
-
-section {
-  display: flex;
-  align-items: center;
-}
-
-.summary {
-  align-items: center;
-  margin-inline: auto;
-}
-
-/* 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
- #map {
+   #map {
   height: 450px;
   width:800px;
-  padding: 50px;
-  margin-left: 30px;
-  margin-top: 30px;
+  }
+
+  .card-title {
+    margin-left: 30px;
+    font-weight: bold;
+  }
+
+  button {
+    width:120px;
+
+  }
+
+  section #graph {
+    height:400px;
+    width: 800px;
+  }
   
+  section #wind_rose {
+    margin-left: 50px;
+  }
 
-}
+  .pictures {
+    display:flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-around;
+  }
 
-#wind_rose {
-  margin-left: 50px;
+  .pictures img {
+    width: 600px;
+    height: 500px;
+    flex: 1 0 auto;
+    padding: 50px;
+  }
+
+  .wind_turbine {
+    display:flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 30px;
+  }
+
+  .wind_turbine img {
+    width: 190px;
+    height: 190px;
+    flex: 1 0 auto;
+  }
+
+  .table_day {
+    margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
 
 
-}
-#graph #graph2 {
-  margin-left: 30px;
-  position: relative;
-  height: 400;
-  width: 800;
 
-
-}
-
-
-/* 
- * Optional: Makes the sample page fill the window. 
- */
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
 
 input[type=text] {
   background-color: #fff;

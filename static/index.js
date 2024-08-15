@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //Calculation of geolocation
   document.getElementById('location').addEventListener('click', function(event) {
-
-
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(function(position) {
       document.querySelector('#latitude').value = position.coords.latitude;
@@ -25,11 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
-
+//function API google maps
 function initMap() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-    currentLat = parseFloat(position.coords.latitude.toFixed(6))
-    currentLng = parseFloat(position.coords.longitude.toFixed(6))
+    currentLat = parseFloat(document.querySelector('#latitude').value)
+    currentLng = parseFloat(document.querySelector('#longitude').value)
+    currentLat = currentLat || 41.404056;
+    currentLng = currentLng || 2.175012;
     // document.querySelector('#latitude').value = currentLat;
     // document.querySelector('#longitude').value = currentLng;
     map = new google.maps.Map(document.getElementById("map"), {
@@ -86,15 +85,14 @@ function initMap() {
       clear();
     });
     clear();
-  });
   
 }
-
+//function API google maps
 function clear() {
   marker.setMap(null);
   responseDiv.style.display = "none";
 }
-
+//function API google maps
 function geocode(request) {
   clear();
   geocoder
@@ -115,23 +113,24 @@ function geocode(request) {
       alert("Geocode was not successful for the following reason: " + e);
     });
 }
-
+//function to display chart step1
 function initChart() {
   let data = document.querySelectorAll('#weibull');
   let data2 = document.querySelectorAll('#weibull_direction');
   const parsedData = []
   const labels = []
+  //convert the data bar chart
   data.forEach((item,index) => {
     parsedData.push(parseFloat(item.dataset.name))
     labels.push(index)
 
   });
+  //convert data wind rose chart
   const parsedData2 = []
   data2.forEach((item2) => {
     parsedData2.push(parseFloat(item2.dataset.name))
   });
   
-  // console.log(parsedData2)
 
   const ctx = document.getElementById('graph').getContext('2d');
   const ctx2 = document.getElementById('wind_rose').getContext('2d');
@@ -228,7 +227,7 @@ const chart = new Chart(ctx, {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  //Calculation of geolocation
+  //Calculate power of turbine
   document.getElementById('turbine').addEventListener('click', function(event) {
     event.preventDefault();
     let data = document.querySelectorAll('#weibull');
@@ -263,7 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
       let atlasx = [0, 0, 13, 30, 101, 256, 482, 617, 752, 1176, 1694, 2765, 3710, 4372, 5327, 6153, 6762, 6942, 7032, 7032, 7032];
       let option_selected = 0;
       let model = "";
-  
+
+      //select turbine  
       if (result == 0) 
         {
           option_selected = wind13;
@@ -296,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function() {
           model = "Atlas X7 7kW"
         }
   
-      // document.querySelector('#result2').innerHTML = option_selected;
       //Calculate power average
       let power = [];
       let Sumpower = 0;
@@ -308,19 +307,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   
         //Energy per day with loss of 12%
-        let energy_day = 0;
-        let energy_year = 0;
-        Sumpower = parseFloat(Sumpower.toFixed(2));
-        energy_day = parseFloat((Sumpower*24*(1-0.12)/1000).toFixed(2));
-        energy_year = parseFloat((energy_day * 365).toFixed(2));
-        document.querySelector('#energy_avg').innerText = Sumpower;
-        document.querySelector('#energy_day').innerText = energy_day;
-        document.querySelector('#energy_year').innerText = energy_year;
-        document.querySelector('#model').innerText = model;
+      let energy_day = 0;
+      let energy_year = 0;
+      Sumpower = parseFloat(Sumpower.toFixed(2));
+      energy_day = parseFloat((Sumpower*24*(1-0.12)/1000).toFixed(2));
+      energy_year = parseFloat((energy_day * 365).toFixed(2));
+      document.querySelector('#energy_avg').innerText = Sumpower;
+      document.querySelector('#energy_day').innerText = energy_day;
+      document.querySelector('#energy_year').innerText = energy_year;
+      document.querySelector('#model').innerText = model;
   
-        // console.log(Sumpower);
-  
-
+      //create chart for turbine model
       const ctx3 = document.getElementById('graph2').getContext('2d');
       if (chart3) {
         chart3.destroy();
@@ -387,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Calculation of comsuption
   document.getElementById('consumption').addEventListener('click', function(event) {
       event.preventDefault();
+      //get elements information
       let element1 = document.querySelector('#input1');
       let element2 = document.querySelector('#input2');
       let element3 = document.querySelector('#input3');
@@ -432,6 +430,8 @@ document.addEventListener('DOMContentLoaded', function() {
       let element13un = document.querySelector('#inputun13');
       let element14un = document.querySelector('#inputun14');
       let element15un = document.querySelector('#inputun15');
+
+      //calculate total power
       let total_power1 = parseFloat(((element1.value * element1un.value)/1000).toFixed(2));
       let total_power2 = parseFloat(((element2.value * element2un.value)/1000).toFixed(2));
       let total_power3 = parseFloat(((element3.value * element3un.value)/1000).toFixed(2));
@@ -447,6 +447,8 @@ document.addEventListener('DOMContentLoaded', function() {
       let total_power13 = parseFloat(((element13.value * element13un.value)/1000).toFixed(2));
       let total_power14 = parseFloat(((element14.value * element14un.value)/1000).toFixed(2));
       let total_power15 = parseFloat(((element15.value * element15un.value)/1000).toFixed(2));
+
+      //calculate total power per day
       let total_power1_day = parseFloat((total_power1 * element1hr.value).toFixed(2));
       let total_power2_day = parseFloat((total_power2 * element2hr.value).toFixed(2));
       let total_power3_day = parseFloat((total_power3 * element3hr.value).toFixed(2));
@@ -462,6 +464,8 @@ document.addEventListener('DOMContentLoaded', function() {
       let total_power13_day = parseFloat((total_power13 * element13hr.value).toFixed(2));
       let total_power14_day = parseFloat((total_power14 * element14hr.value).toFixed(2));
       let total_power15_day = parseFloat((total_power15 * element15hr.value).toFixed(2));
+
+      //result of total power in html text
       document.querySelector('#total_power1').innerText = total_power1;
       document.querySelector('#total_power2').innerText = total_power2;
       document.querySelector('#total_power3').innerText = total_power3;
@@ -492,14 +496,19 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('#total_power_day13').innerText = total_power13_day;
       document.querySelector('#total_power_day14').innerText = total_power14_day;
       document.querySelector('#total_power_day15').innerText = total_power15_day;
+
+      //calcular power per day
       let power_day =parseFloat(total_power1_day+total_power2_day+total_power3_day+total_power4_day+total_power5_day+total_power6_day+total_power7_day+total_power8_day+total_power9_day+total_power10_day+total_power11_day+total_power12_day+total_power13_day+total_power14_day+total_power15_day).toFixed(2);
       document.querySelector('#power_day').innerText = power_day;
+
+      //calculate power per year
       let power_year =parseFloat(power_day*365).toFixed(2);
       document.querySelector('#power_year').innerText = power_year;
 
   })
 
 });
+  //Use API solar without refreshing the page
   const form = document.getElementById('form_solar');
   form.addEventListener('submit', function(event) {
     event.preventDefault();    // prevent page from refreshing
@@ -517,8 +526,8 @@ document.addEventListener('DOMContentLoaded', function() {
       parsedData4.push(parseFloat(item.dataset.name))
   });
     
-  // document.querySelector('#result2').innerHTML = option_selected;
-  //Calculate power average
+
+  //Calculate total solar power
   let solar_sumpower = 0;
   for (var k = 0; k < parsedData4.length; k++)  //loops through the array 
   {
@@ -532,6 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const ctx4 = document.getElementById('graph3').getContext('2d');
     
+  //create a chart with solar production
   const chart4 = new Chart(ctx4, {
 
     data: {
@@ -580,6 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   })
 
+  //calculate total savings
   })
   document.getElementById('saving').addEventListener('click', function(event) {
     event.preventDefault();
@@ -602,44 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#economic').innerText = economic;
     document.querySelector('#percentage').innerText = percentage + "% per year";
   })
-
-
-function PVGIS(lat,lon,solar_power,loss) {
-  const urlBase = "https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?";
-  const pvgisParams = {
-    lat: lat,
-    lon: lon,
-    peakpower: solar_power,
-    loss: loss,
-    optimalinclination: 1,
-    vertical_axis: 1,
-    optimalangles: 1,
-    inclined_axis: 1,
-    inclined_optimum: 1,
-    angle: 0,
-    azimuth: 0,
-    outputformat: 'json'
-  };
-  const params = new URLSearchParams(pvgisParams).toString();
-  const url = `${urlBase}?${params}`;
-  fetch(url)
-      .then(response => response.json())
-      .then(data => {
-          const e_m_value = data.outputs.monthly.fixed.map(entry => entry.E_m);
-          const slope = data.inputs.mounting_system.fixed.slope.value;
-          const azimuth = data.inputs.mounting_system.fixed.azimuth.value;
   
-          console.log(e_m_value, slope, azimuth);
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
-
-}
-
-
-
-
 window.initMap = initMap;
 initChart()
 // initChart2()
