@@ -74,7 +74,7 @@ ecosustainable.
 + static/images--> Pictures used in the project
 + static/bootstrap.min.css--> File frome bootstrap to design the page template
 + static/index.js Javascript file with the main functions used like: Initmap, clear, geocode: are functions to be used to call the API frome google maps to get the latitude and longitude.Function Initchart: function used to generate the graphics in canvas with the data obtained from flask. There are so many math operations to calculate consumption, power production and savings.
-+ static/styles.css file in css to modify styles in the webpage.
++ static/styles.css file in css to modify styles in the webpage. I used different styles like, margin, padding, flex, align, size, etc.
 + template/index.html index page
 + app.py function in flask to receive the values from step one and four. There are functions like wind and power to be used to get the information from wheater API to obtained the values of wind and solar production.
 + helpers.py in this file are developed the functions wind and power where call the API from wheater Open-meteo and PVGIS site.

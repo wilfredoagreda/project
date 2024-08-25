@@ -1,11 +1,4 @@
-import os
-import matplotlib.pyplot as plt
-import numpy as np
-import math
-import scipy.special as sc
-
-from cs50 import sql
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, jsonify, render_template, request
 from helpers import windavg, power
 
 # Configure application
@@ -13,9 +6,6 @@ app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
-# Configure CS50 Library to use SQLite database
-#db = SQL
 
 @app.after_request
 def after_request(response):
@@ -30,7 +20,6 @@ def index():
 
     if request.method =="POST":
         latitude = request.form.get("latitude")
-        # app.logger.info('entre en post')
         longitude = request.form.get("longitude")
         if not latitude or not longitude:
             return jsonify({"error": "Missing latitude or longitude"}), 400
@@ -40,11 +29,7 @@ def index():
         return jsonify({"weibull":wind["Weibull"],"weibull_direction":wind["Weibull_direction"], "direction":wind["wind_direction"], "speed":wind["wind_speed"]})
 
     else:
-        app.logger.info('entre en get')
         return render_template("index.html")
-    
-
-
 
 @app.route("/solar", methods=["GET", "POST"])
 def index2():
@@ -62,6 +47,5 @@ def index2():
         return jsonify({"solar_production":power_solar["solar_production"], "slope":power_solar["slope"], "azimuth":power_solar["azimuth"]})
 
     else:
-        app.logger.info('entre en get')
         return render_template("index.html")
 

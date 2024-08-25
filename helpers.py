@@ -3,21 +3,13 @@ import requests
 import requests_cache
 import pandas as pd
 from retry_requests import retry
-import urllib
-import uuid
-import os, csv, json, requests
-import glob
-from datetime import date
+import os, json, requests
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
-import matplotlib.pyplot as plt
 import numpy as np
 import math
 import scipy.special as sc
-
-from flask import redirect, render_template, request, session
-from functools import wraps
 
 def windavg(longitude, latitude):
     # Setup the Open-Meteo API client with cache and retry on error
@@ -40,10 +32,6 @@ def windavg(longitude, latitude):
 
     # Process first location. Add a for-loop for multiple locations or weather models
     response = responses[0]
-    #print(f"Coordinates {response.Latitude()}°N {response.Longitude()}°E")
-    #print(f"Elevation {response.Elevation()} m asl")
-    #print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
-    #print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
 
     # Process hourly data. The order of variables needs to be the same as requested.
     hourly = response.Hourly()
@@ -64,12 +52,11 @@ def windavg(longitude, latitude):
     hourly_data["wind_direction_100m"] = hourly_wind_direction_100m
 
     hourly_dataframe = pd.DataFrame(data = hourly_data)
-    # print(hourly_dataframe)
     avg=hourly_dataframe.mean()
     wind_speed_10m= round(float(avg.iloc[1]), 2)
-    wind_speed_100m=round(float(avg.iloc[2]), 2)
+    # wind_speed_100m=round(float(avg.iloc[2]), 2)
     wind_direction_10m=round(float(avg.iloc[3]), 2)
-    wind_direction_100m=round(float(avg.iloc[4]), 2)
+    # wind_direction_100m=round(float(avg.iloc[4]), 2)
 
     def weibull (x,c,k):
      return (k / c) * (x / c)**(k - 1) * np.exp(-(x / c)**k)

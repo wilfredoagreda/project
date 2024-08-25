@@ -378,122 +378,30 @@ document.addEventListener('DOMContentLoaded', function () {
   //Calculation of comsuption
   document.getElementById('consumption').addEventListener('click', function (event) {
     event.preventDefault();
-    //get elements information
-    let element1 = document.querySelector('#input1');
-    let element2 = document.querySelector('#input2');
-    let element3 = document.querySelector('#input3');
-    let element4 = document.querySelector('#input4');
-    let element5 = document.querySelector('#input5');
-    let element6 = document.querySelector('#input6');
-    let element7 = document.querySelector('#input7');
-    let element8 = document.querySelector('#input8');
-    let element9 = document.querySelector('#input9');
-    let element10 = document.querySelector('#input10');
-    let element11 = document.querySelector('#input11');
-    let element12 = document.querySelector('#input12');
-    let element13 = document.querySelector('#input13');
-    let element14 = document.querySelector('#input14');
-    let element15 = document.querySelector('#input15');
-    let element1hr = document.querySelector('#inputhr1');
-    let element2hr = document.querySelector('#inputhr2');
-    let element3hr = document.querySelector('#inputhr3');
-    let element4hr = document.querySelector('#inputhr4');
-    let element5hr = document.querySelector('#inputhr5');
-    let element6hr = document.querySelector('#inputhr6');
-    let element7hr = document.querySelector('#inputhr7');
-    let element8hr = document.querySelector('#inputhr8');
-    let element9hr = document.querySelector('#inputhr9');
-    let element10hr = document.querySelector('#inputhr10');
-    let element11hr = document.querySelector('#inputhr11');
-    let element12hr = document.querySelector('#inputhr12');
-    let element13hr = document.querySelector('#inputhr13');
-    let element14hr = document.querySelector('#inputhr14');
-    let element15hr = document.querySelector('#inputhr15');
-    let element1un = document.querySelector('#inputun1');
-    let element2un = document.querySelector('#inputun2');
-    let element3un = document.querySelector('#inputun3');
-    let element4un = document.querySelector('#inputun4');
-    let element5un = document.querySelector('#inputun5');
-    let element6un = document.querySelector('#inputun6');
-    let element7un = document.querySelector('#inputun7');
-    let element8un = document.querySelector('#inputun8');
-    let element9un = document.querySelector('#inputun9');
-    let element10un = document.querySelector('#inputun10');
-    let element11un = document.querySelector('#inputun11');
-    let element12un = document.querySelector('#inputun12');
-    let element13un = document.querySelector('#inputun13');
-    let element14un = document.querySelector('#inputun14');
-    let element15un = document.querySelector('#inputun15');
+    let power_day = 0
 
-    //calculate total power
-    let total_power1 = parseFloat(((element1.value * element1un.value) / 1000).toFixed(2));
-    let total_power2 = parseFloat(((element2.value * element2un.value) / 1000).toFixed(2));
-    let total_power3 = parseFloat(((element3.value * element3un.value) / 1000).toFixed(2));
-    let total_power4 = parseFloat(((element4.value * element4un.value) / 1000).toFixed(2));
-    let total_power5 = parseFloat(((element5.value * element5un.value) / 1000).toFixed(2));
-    let total_power6 = parseFloat(((element6.value * element6un.value) / 1000).toFixed(2));
-    let total_power7 = parseFloat(((element7.value * element7un.value) / 1000).toFixed(2));
-    let total_power8 = parseFloat(((element8.value * element8un.value) / 1000).toFixed(2));
-    let total_power9 = parseFloat(((element9.value * element9un.value) / 1000).toFixed(2));
-    let total_power10 = parseFloat(((element10.value * element10un.value) / 1000).toFixed(2));
-    let total_power11 = parseFloat(((element11.value * element11un.value) / 1000).toFixed(2));
-    let total_power12 = parseFloat(((element12.value * element12un.value) / 1000).toFixed(2));
-    let total_power13 = parseFloat(((element13.value * element13un.value) / 1000).toFixed(2));
-    let total_power14 = parseFloat(((element14.value * element14un.value) / 1000).toFixed(2));
-    let total_power15 = parseFloat(((element15.value * element15un.value) / 1000).toFixed(2));
+    for (let index = 1; index <= 15; index++) {
+      
+      //get elements information
+      const element = document.querySelector(`#input${index}`);
+      const elementhr = document.querySelector(`#inputhr${index}`);
+      const elementun = document.querySelector(`#inputun${index}`);
+      
+      //calculate total power
+      const total_power = parseFloat(((element.value * elementun.value) / 1000).toFixed(2));
 
-    //calculate total power per day
-    let total_power1_day = parseFloat((total_power1 * element1hr.value).toFixed(2));
-    let total_power2_day = parseFloat((total_power2 * element2hr.value).toFixed(2));
-    let total_power3_day = parseFloat((total_power3 * element3hr.value).toFixed(2));
-    let total_power4_day = parseFloat((total_power4 * element4hr.value).toFixed(2));
-    let total_power5_day = parseFloat((total_power5 * element5hr.value).toFixed(2));
-    let total_power6_day = parseFloat((total_power6 * element6hr.value).toFixed(2));
-    let total_power7_day = parseFloat((total_power7 * element7hr.value).toFixed(2));
-    let total_power8_day = parseFloat((total_power8 * element8hr.value).toFixed(2));
-    let total_power9_day = parseFloat((total_power9 * element9hr.value).toFixed(2));
-    let total_power10_day = parseFloat((total_power10 * element10hr.value).toFixed(2));
-    let total_power11_day = parseFloat((total_power11 * element11hr.value).toFixed(2));
-    let total_power12_day = parseFloat((total_power12 * element12hr.value).toFixed(2));
-    let total_power13_day = parseFloat((total_power13 * element13hr.value).toFixed(2));
-    let total_power14_day = parseFloat((total_power14 * element14hr.value).toFixed(2));
-    let total_power15_day = parseFloat((total_power15 * element15hr.value).toFixed(2));
+      //calculate total power per day
+      const total_power_day = parseFloat((total_power * elementhr.value).toFixed(2));
 
-    //result of total power in html text
-    document.querySelector('#total_power1').innerText = total_power1;
-    document.querySelector('#total_power2').innerText = total_power2;
-    document.querySelector('#total_power3').innerText = total_power3;
-    document.querySelector('#total_power4').innerText = total_power4;
-    document.querySelector('#total_power5').innerText = total_power5;
-    document.querySelector('#total_power6').innerText = total_power6;
-    document.querySelector('#total_power7').innerText = total_power7;
-    document.querySelector('#total_power8').innerText = total_power8;
-    document.querySelector('#total_power9').innerText = total_power9;
-    document.querySelector('#total_power10').innerText = total_power10;
-    document.querySelector('#total_power11').innerText = total_power11;
-    document.querySelector('#total_power12').innerText = total_power12;
-    document.querySelector('#total_power13').innerText = total_power13;
-    document.querySelector('#total_power14').innerText = total_power14;
-    document.querySelector('#total_power15').innerText = total_power15;
-    document.querySelector('#total_power_day1').innerText = total_power1_day;
-    document.querySelector('#total_power_day2').innerText = total_power2_day;
-    document.querySelector('#total_power_day3').innerText = total_power3_day;
-    document.querySelector('#total_power_day4').innerText = total_power4_day;
-    document.querySelector('#total_power_day5').innerText = total_power5_day;
-    document.querySelector('#total_power_day6').innerText = total_power6_day;
-    document.querySelector('#total_power_day7').innerText = total_power7_day;
-    document.querySelector('#total_power_day8').innerText = total_power8_day;
-    document.querySelector('#total_power_day9').innerText = total_power9_day;
-    document.querySelector('#total_power_day10').innerText = total_power10_day;
-    document.querySelector('#total_power_day11').innerText = total_power11_day;
-    document.querySelector('#total_power_day12').innerText = total_power12_day;
-    document.querySelector('#total_power_day13').innerText = total_power13_day;
-    document.querySelector('#total_power_day14').innerText = total_power14_day;
-    document.querySelector('#total_power_day15').innerText = total_power15_day;
+      //result of total power in html text
+      document.querySelector(`#total_power${index}`).innerText = total_power;
+      document.querySelector(`#total_power_day${index}`).innerText = total_power_day;
+
+      power_day += total_power_day
+    }
 
     //calcular power per day
-    let power_day = parseFloat(total_power1_day + total_power2_day + total_power3_day + total_power4_day + total_power5_day + total_power6_day + total_power7_day + total_power8_day + total_power9_day + total_power10_day + total_power11_day + total_power12_day + total_power13_day + total_power14_day + total_power15_day).toFixed(2);
-    document.querySelector('#power_day').innerText = power_day;
+    document.querySelector('#power_day').innerText = power_day.toFixed(2);
 
     //calculate power per year
     let power_year = parseFloat(power_day * 365).toFixed(2);
