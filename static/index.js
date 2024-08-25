@@ -7,7 +7,7 @@ let responseDiv;
 let chart3;
 let chart4;
 
-//power of turbine in watts
+//power of turbine in watts, obtained from each brand
 const turbine_powers = {
   wind13: {
     option_selected: [0, 0, 10, 40, 70, 150, 250, 375, 500, 600, 750, 850, 950, 1000, 700, 450, 300, 250, 250, 250, 250],
