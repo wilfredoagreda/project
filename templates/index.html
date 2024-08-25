@@ -36,27 +36,21 @@
                 <h3 class="card-title">WIND SUMMARY</h3>
               </div>
               <div>
-                <h4><strong>Average speed (m/s): </strong>{{ speed }}</h4>
-                <h4><strong>Average direction (º): </strong>{{ direction }}</h4>
-                <p><strong>Latitude: </strong>{{ latitude }}</p>
-                <p><strong>Longitude: </strong>{{ longitude }}</p>
+                <h4 id="speed"><strong>Average speed (m/s): </strong></h4>
+                <h4 id="direction"><strong>Average direction (º): </strong></h4>
+                <p id="latitude2"><strong>Latitude: </strong></p>
+                <p id="longitude2"><strong>Longitude: </strong></p>
                 <p><strong>Height above ground: </strong>10m</p>
               </div>
             </div>
           </section>
           <h5 class="card-title">Or introduce your coordinates</h5>
-          <form class = "manual" action="/" method="post">
+          <form id="manual" class = "manual" action="/" method="post">
             <button type="button" class="btn btn-primary" id="location"><img src="static/images/compass.png" width="20" height="20"></button>
-              <input class="form-control" type="number" step="0.0000001" name="latitude" placeholder="Latitude" id="latitude" min="-90" max="90" value="{{ latitude }}">
-              <input class="form-control" type="number" step="0.0000001" name="longitude" placeholder="Longitude" id="longitude" min="-180" max="180" value="{{ longitude }}">
+              <input class="form-control" type="number" step="0.0000001" name="latitude" placeholder="Latitude" id="latitude" min="-90" max="90">
+              <input class="form-control" type="number" step="0.0000001" name="longitude" placeholder="Longitude" id="longitude" min="-180" max="180">
               <button type="submit" id="coordinates" class="btn btn-primary">Submit</button>
           </form> 
-          {% for row in weibull %}
-            <meta id="weibull" data-name="{{row}}"></meta>
-          {% endfor %}
-          {% for item in weibull_direction %}
-          <meta id="weibull_direction" data-name="{{item}}"></meta>
-          {% endfor %}
           <hr class="border border-primary border-3 opacity-50">
           <h3 class="card-title" style="text-align: center; text-decoration: underline;"><strong>WIND INFORMATION</strong></h3>
           <section>
@@ -343,13 +337,10 @@
                 <h6>%</h6>
                 <small style="margin-right: 40px; margin-left: 50px;">The estimated system losses are all the losses in the system, which cause the power actually delivered to the electricity grid to be lower than the power produced by the PV modules. We have given a default value of 14% for the overall losses. If you have a good idea that your value will be different you may reduce this value a little.</small>
               </section>
-              <input hidden value="{{ latitude }}" name="latitude">
-              <input hidden value="{{ longitude }}" name="longitude">
+              <input hidden id="latitude3" name="latitude">
+              <input hidden id="longitude3" name="longitude">
               <button type="submit" class="btn btn-primary" id="solar_panels" style="margin-left: 30px; margin-bottom: 30px;">Submit</button>
             </form>
-          {% for data in solar_production %}
-          <meta id="power_solar" data-name="{{data}}"></meta>
-          {% endfor %}   
           <hr class="border border-primary border-3 opacity-50">
           <h3 class="card-title" style="text-align: center; text-decoration: underline;"><strong>SOLAR GENERATION INFORMATION</strong></h3>
           <section>
@@ -359,11 +350,11 @@
                   <img src="static/images/solar_power.png" margin = "20px" width="100" height="100">
                   <h3 class="card-title"><strong>SOLAR PRODUCTION SUMMARY</strong></h3>
                 </div>
-                <h4><strong>PV installed [kWp]: </strong><span>{{solar_power}}</span></h4>
-                <h4><strong>System loss [%]: </strong><span>{{loss}}</span></h4>   
+                <h4 id="solar_power2"><strong>PV installed [kWp]: </strong><span></span></h4>
+                <h4 id="loss2"><strong>System loss [%]: </strong><span></span></h4>   
                 <h4><strong>PV technology: </strong><span>Crystalline silicon</span></h4>               
-                <h4><strong>Slope angle Opt (°): </strong><span id="slope">{{slope}}</span></h4>
-                <h4><strong>Azimuth angle Opt (°): </strong><span id="slope">{{azimuth}}</span></h4>
+                <h4><strong>Slope angle Opt (°): </strong><span id="slope"></span></h4>
+                <h4><strong>Azimuth angle Opt (°): </strong><span id="azimuth"></span></h4>
                 <h4><strong>Yearly PV production (kWh): </strong><span id="year_power"></span></h4>
               </div>
           </section>
@@ -425,4 +416,3 @@
 
     </body>
 </html>
-
